@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RUHAN HRMS - Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            RUHAN <span>HRMS</span>
+        </div>
+
+        <nav>
+
+            <a href="/" class="active">
+                Dashboard
+            </a>
+
+            <a href="/employees">
+                Employees
+            </a>
+
+            <a href="/attendance">
+                Attendance
+            </a>
+
+            <a href="/leave">
+                Leave Management
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <h1>Dashboard</h1>
+                <p>Human Resource Management System</p>
+            </div>
+
+            <div class="admin">
+                Admin
+            </div>
+
+        </header>
+
+
+        <section class="dashboard">
+
+            <div class="stat-card">
+                <h3>Total Employees</h3>
+                <strong>{{ total_employees }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <h3>Present Today</h3>
+                <strong>{{ present_today }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <h3>On Leave</h3>
+                <strong>{{ on_leave }}</strong>
+            </div>
+
+            <div class="stat-card">
+                <h3>Pending Leaves</h3>
+                <strong>{{ pending_leaves }}</strong>
+            </div>
+
+        </section>
+
+
+        <section class="welcome">
+
+            <h2>Welcome to RUHAN HRMS</h2>
+
+            <p>
+                Manage employees, attendance and leave
+                from one central platform.
+            </p>
+
+        </section>
+
+
+        <section class="quick-actions">
+
+            <h2>Quick Access</h2>
+
+            <div class="action-grid">
+
+                <a href="/employees" class="action-card">
+                    <h3>Employees</h3>
+                    <p>Manage employee records</p>
+                </a>
+
+                <a href="/attendance" class="action-card">
+                    <h3>Attendance</h3>
+                    <p>Track employee attendance</p>
+                </a>
+
+                <a href="/leave" class="action-card">
+                    <h3>Leave Management</h3>
+                    <p>Manage leave requests</p>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

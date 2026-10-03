@@ -1,0 +1,1 @@
+console.log("RUHAN HRMS JavaScript loaded");

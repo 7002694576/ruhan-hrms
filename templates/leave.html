@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RUHAN HRMS - Leave Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            RUHAN <span>HRMS</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Dashboard</a>
+
+            <a href="/employees">
+                Employees
+            </a>
+
+            <a href="/attendance">
+                Attendance
+            </a>
+
+            <a href="/leave" class="active">
+                Leave Management
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Leave Management</h1>
+
+                <p>
+                    Manage employee leave requests
+                </p>
+
+            </div>
+
+            <div class="admin">
+                Admin
+            </div>
+
+        </header>
+
+
+        <section class="form-card">
+
+            <h2>Apply Leave</h2>
+
+            <form action="/add_leave"
+                  method="POST"
+                  class="form-grid">
+
+                <select name="employee_id" required>
+
+                    <option value="">
+                        Select Employee
+                    </option>
+
+                    {% for employee in employees %}
+
+                    <option value="{{ employee.employee_id }}">
+
+                        {{ employee.employee_id }}
+                        - {{ employee.name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <select name="leave_type" required>
+
+                    <option value="">
+                        Leave Type
+                    </option>
+
+                    <option value="Casual Leave">
+                        Casual Leave
+                    </option>
+
+                    <option value="Sick Leave">
+                        Sick Leave
+                    </option>
+
+                    <option value="Annual Leave">
+                        Annual Leave
+                    </option>
+
+                </select>
+
+
+                <input
+                    type="date"
+                    name="from_date"
+                    required>
+
+
+                <input
+                    type="date"
+                    name="to_date"
+                    required>
+
+
+                <input
+                    type="text"
+                    name="reason"
+                    placeholder="Reason">
+
+
+                <button type="submit">
+                    Submit Leave
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <h2>Leave Requests</h2>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Employee ID</th>
+                            <th>Leave Type</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Reason</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for leave in leaves %}
+
+                        <tr>
+
+                            <td>
+                                {{ leave.employee_id }}
+                            </td>
+
+                            <td>
+                                {{ leave.leave_type }}
+                            </td>
+
+                            <td>
+                                {{ leave.from_date }}
+                            </td>
+
+                            <td>
+                                {{ leave.to_date }}
+                            </td>
+
+                            <td>
+                                {{ leave.reason }}
+                            </td>
+
+                            <td>
+
+                                <span class="status">
+                                    {{ leave.status }}
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                {% if leave.status == "Pending" %}
+
+                                <a class="approve"
+                                   href="/leave/{{ leave.id }}/Approved">
+
+                                    Approve
+
+                                </a>
+
+                                <a class="reject"
+                                   href="/leave/{{ leave.id }}/Rejected">
+
+                                    Reject
+
+                                </a>
+
+                                {% else %}
+
+                                -
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="7"
+                                class="empty">
+
+                                No leave requests found.
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>

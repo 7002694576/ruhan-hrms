@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>RUHAN HRMS - Attendance</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            RUHAN <span>HRMS</span>
+        </div>
+
+        <nav>
+
+            <a href="/">Dashboard</a>
+
+            <a href="/employees">
+                Employees
+            </a>
+
+            <a href="/attendance" class="active">
+                Attendance
+            </a>
+
+            <a href="/leave">
+                Leave Management
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>Attendance</h1>
+
+                <p>
+                    Employee Attendance Management
+                </p>
+
+            </div>
+
+            <div class="admin">
+                Admin
+            </div>
+
+        </header>
+
+
+        <section class="form-card">
+
+            <h2>Mark Attendance</h2>
+
+            <form action="/add_attendance"
+                  method="POST"
+                  class="form-grid">
+
+                <select name="employee_id" required>
+
+                    <option value="">
+                        Select Employee
+                    </option>
+
+                    {% for employee in employees %}
+
+                    <option value="{{ employee.employee_id }}">
+
+                        {{ employee.employee_id }}
+                        - {{ employee.name }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <input
+                    type="date"
+                    name="date"
+                    required>
+
+
+                <select name="status" required>
+
+                    <option value="Present">
+                        Present
+                    </option>
+
+                    <option value="Absent">
+                        Absent
+                    </option>
+
+                </select>
+
+
+                <button type="submit">
+                    Save Attendance
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <section class="table-card">
+
+            <h2>Attendance Records</h2>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Employee ID</th>
+                            <th>Date</th>
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for record in records %}
+
+                        <tr>
+
+                            <td>
+                                {{ record.employee_id }}
+                            </td>
+
+                            <td>
+                                {{ record.date }}
+                            </td>
+
+                            <td>
+                                <span class="status">
+                                    {{ record.status }}
+                                </span>
+                            </td>
+
+                        </tr>
+
+                    {% else %}
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="empty">
+
+                                No attendance records found.
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+</html>
